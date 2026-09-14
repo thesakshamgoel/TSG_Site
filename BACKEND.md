@@ -1,7 +1,10 @@
 # Backend setup — login, emailed forms & shared content
 
-Your site works with **zero** setup (local mode). Do the steps below only to turn
-on the real backend: a Google login that's just you, reviews/featured picks that
+Your site ships with the Firebase project config **baked in** (it's a public
+client identifier, not a secret — see `src/firebase/config.js`), so the Google
+login, shared content and owner console work on any host with zero setup. Do
+the steps below once to make sure the Firebase *project* side is enabled:
+a Google login that's just you, reviews/featured picks that
 every visitor sees, and forms that email you.
 
 Everything degrades gracefully — if a piece isn't configured, that piece falls
@@ -75,6 +78,11 @@ Open it from the footer **"Developer console"** link (or `Ctrl/Cmd + Shift + K`)
 ## Deploying
 
 The front-end is a static build (`npm run build` → `dist/`). Deploy `dist/` to
-Netlify / Vercel / Cloudflare Pages / GitHub Pages. Add the same `.env.local`
-variables in your host's **environment variables** settings so the production
-build gets them. No server to run — Firebase and Web3Forms are the backend.
+Netlify / Vercel / Cloudflare Pages / GitHub Pages — **no host environment
+variables needed**: the Firebase web config is built into the bundle, so the
+Sign in button and console work everywhere. Set `VITE_*` vars on the host only
+if you ever point the site at a *different* Firebase project.
+
+Don't forget **Authentication → Settings → Authorized domains** (step 7) for
+every domain you serve the site from — Google sign-in refuses domains that
+aren't listed there. No server to run — Firebase and Web3Forms are the backend.
