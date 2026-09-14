@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Georgia, 'Times New Roman', serif">
+  <rect width="800" height="600" fill="#efefef"/>
+  <rect x="40" y="40" width="720" height="520" fill="#ffffff" stroke="#c9c9c9" stroke-width="2"/>
+  <rect x="52" y="52" width="696" height="496" fill="none" stroke="#e2e2e2" stroke-width="1"/>
+  <text x="400" y="190" text-anchor="middle" font-size="42" fill="#141414" font-weight="bold">Certificate of Completion</text>
+  <text x="400" y="250" text-anchor="middle" font-size="19" fill="#8a8a8a" font-family="Inter, Arial, sans-serif">This certificate is awarded to</text>
+  <text x="400" y="310" text-anchor="middle" font-size="40" fill="#141414">Saksham Goel</text>
+  <text x="400" y="370" text-anchor="middle" font-size="19" fill="#8a8a8a" font-family="Inter, Arial, sans-serif">For successfully completing the online course:</text>
+  <text x="400" y="428" text-anchor="middle" font-size="36" fill="#141414">Freelance Colorist</text>
+  <text x="110" y="520" font-size="16" fill="#9a9a9a" font-family="Inter, Arial, sans-serif">April 22, 2026</text>
+  <text x="690" y="520" text-anchor="end" font-size="16" fill="#9a9a9a" font-family="Inter, Arial, sans-serif">NrjcMJ8x</text>
+</svg>

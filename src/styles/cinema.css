@@ -1,0 +1,115 @@
+/* ============================================================
+   CINEMA DESIGN SYSTEM
+   Film-strip perforations, slate labels, timecode, letterbox.
+   Reused across the whole site so it reads as film work.
+   ============================================================ */
+
+:root {
+  --perf-h: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='22'%3E%3Crect x='10' y='5' width='14' height='12' rx='3' fill='%2317171d' stroke='%233a352c' stroke-width='1'/%3E%3C/svg%3E");
+  --perf-v: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='34'%3E%3Crect x='5' y='10' width='12' height='14' rx='3' fill='%2317171d' stroke='%233a352c' stroke-width='1'/%3E%3C/svg%3E");
+  --font-mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+
+/* horizontal perforation rail (row of sprocket holes) */
+.perf-row {
+  height: 22px;
+  background: #0b0b0e var(--perf-h) repeat-x center;
+}
+
+/* vertical perforation rail (column of sprocket holes) */
+.perf-col {
+  width: 22px;
+  background: #0b0b0e var(--perf-v) repeat-y center;
+}
+
+/* letterbox cinematic bars */
+.letterbox {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 46px;
+  background: #050506;
+  z-index: 40;
+  pointer-events: none;
+}
+.letterbox--top {
+  top: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.letterbox--bottom {
+  bottom: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* slate / clapper style label */
+.slate {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.slate::before {
+  content: '';
+  width: 26px;
+  height: 12px;
+  background: repeating-linear-gradient(
+    115deg,
+    #f4f2ee 0 5px,
+    #14141a 5px 10px
+  );
+  border-radius: 2px;
+  opacity: 0.9;
+}
+
+/* timecode chip */
+.timecode {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* REC indicator */
+.rec {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: #ff5a5a;
+  text-transform: uppercase;
+}
+.rec::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff4444;
+  box-shadow: 0 0 10px #ff4444;
+  animation: rec-blink 1.4s steps(1) infinite;
+}
+@keyframes rec-blink {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0.15;
+  }
+}
+
+/* thin decorative film-strip divider between sections */
+.reel-divider {
+  position: relative;
+  height: 40px;
+  background: #0b0b0e var(--perf-h) repeat-x center;
+  opacity: 0.5;
+  z-index: 2;
+}

@@ -1,0 +1,21 @@
+rules_version = '2';
+// Firestore security rules — paste these into your Firebase project's
+// Firestore → Rules tab (and change the email if you ever change owners).
+//
+// The whole site's editable content lives in one public-readable document
+// (site/content). Anyone can READ it (visitors need to see your work); only
+// your signed-in, verified Google account can WRITE it.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /site/content {
+      allow read: if true;
+      allow write: if request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email == 'thesakshamgoel@gmail.com';
+    }
+    // deny everything else by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

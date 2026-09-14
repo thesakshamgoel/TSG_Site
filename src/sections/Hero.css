@@ -1,0 +1,260 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh; /* dynamic viewport: no jump when mobile URL bar hides */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 0;
+  text-align: center;
+}
+
+/* (letterbox bars removed — they read as a black line against the 3D space) */
+
+.hero__hud {
+  position: absolute;
+  z-index: 4;
+  font-family: var(--font-mono);
+}
+.hero__hud--tl {
+  top: 86px;
+  left: 40px;
+}
+.hero__hud--tr {
+  top: 86px;
+  right: 40px;
+}
+.hero__hud--bl {
+  bottom: 78px;
+  left: 40px;
+}
+
+.hero__inner {
+  max-width: 1040px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  /* slight 3D focus toward the pointer */
+  transform: perspective(1200px) rotateX(calc(var(--pny) * -1.6deg))
+    rotateY(calc(var(--pnx) * 1.6deg));
+  transition: transform 0.35s ease-out;
+  transform-style: preserve-3d;
+}
+
+.hero__logo {
+  width: clamp(150px, 17vw, 220px);
+  height: auto;
+  margin-bottom: 22px;
+  filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.5));
+  animation: logo-float 5s ease-in-out infinite;
+}
+@keyframes logo-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1.2deg);
+  }
+}
+
+.hero__slate {
+  margin-bottom: 22px;
+}
+
+/* continuous, gentle text motion */
+.hero__breathe {
+  animation: breathe 7s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    letter-spacing: -0.03em;
+  }
+  50% {
+    transform: translateY(-4px) scale(1.004);
+    letter-spacing: -0.028em;
+  }
+}
+
+/* pointer-parallax float — sits on a wrapper so it composes with the
+   section tilt above and the breathe animation on the h1 itself */
+.hero__name-float {
+  transform: translate(calc(var(--pnx) * 6px), calc(var(--pny) * 4px));
+  transition: transform 0.3s ease-out;
+}
+
+.hero__name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 10vw, 7.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  margin-bottom: 22px;
+  color: #ffffff;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  text-shadow: 0 8px 80px rgba(0, 0, 0, 0.7);
+}
+
+/* masked word reveal — each word rises out of its own clipping window */
+.hero__word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  /* a touch of hidden room so descenders aren't shaved by the clip */
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+.hero__word-mask:not(:last-child) {
+  margin-right: 0.26em;
+}
+.hero__word {
+  display: inline-block;
+}
+
+.hero__tagline {
+  font-size: clamp(1.1rem, 3.2vw, 2rem);
+  font-weight: 500;
+  margin-bottom: 22px;
+}
+
+.hero__intro {
+  color: var(--text);
+  opacity: 0.8;
+  font-size: clamp(1.02rem, 2vw, 1.2rem);
+  max-width: 560px;
+  margin-bottom: 40px;
+}
+
+/* film-strip accent */
+.hero__reel {
+  width: min(680px, 92%);
+  margin-bottom: 40px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #08080a;
+}
+.hero__reel-perf {
+  display: block;
+  height: 16px;
+  background-size: auto 16px;
+}
+.hero__reel-frames {
+  overflow: hidden;
+}
+/* infinite marquee: labels are rendered twice, so -50% loops seamlessly */
+.hero__reel-track {
+  display: flex;
+  width: max-content;
+  animation: reel-marquee 20s linear infinite;
+}
+@keyframes reel-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.hero__reel:hover .hero__reel-track {
+  animation-play-state: paused;
+}
+.hero__reel-frame {
+  flex: 0 0 auto;
+  min-width: 128px;
+  text-align: center;
+  white-space: nowrap;
+  padding: 14px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, rgba(233, 184, 114, 0.05), transparent);
+}
+
+.hero__cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hero__scrollhint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-dim);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  z-index: 4;
+}
+.hero__scrollline {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(var(--gold), transparent);
+  animation: scrollpulse 2s ease-in-out infinite;
+}
+@keyframes scrollpulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scaleY(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    padding: 96px 0 80px;
+  }
+  /* the bottom tab bar covers this spot on mobile — drop the hint */
+  .hero__scrollhint {
+    display: none;
+  }
+  /* pointer tilt is meaningless on touch and can look jittery — flatten it */
+  .hero__inner {
+    transform: none;
+  }
+  .hero__name-float {
+    transform: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .hero__hud--tl,
+  .hero__hud--tr {
+    top: 74px;
+  }
+  .hero__hud {
+    left: 20px;
+    right: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__reel-track,
+  .hero__breathe,
+  .hero__logo,
+  .hero__scrollline {
+    animation: none;
+  }
+  .hero__name-float {
+    transform: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,88 @@
+.app {
+  position: relative;
+  z-index: 2;
+}
+
+/* slow animated gradient wash over the 3D scene */
+.aurora {
+  position: fixed;
+  inset: -20%;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(50px);
+  background:
+    radial-gradient(38% 38% at 22% 28%, rgba(233, 184, 114, 0.12), transparent 60%),
+    radial-gradient(40% 40% at 80% 62%, rgba(35, 199, 199, 0.08), transparent 60%),
+    radial-gradient(46% 46% at 52% 92%, rgba(124, 108, 255, 0.07), transparent 60%);
+  animation: aurora-drift 26s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(-3%, -2%, 0) scale(1.05);
+  }
+  50% {
+    transform: translate3d(3%, 2%, 0) scale(1.15);
+  }
+  100% {
+    transform: translate3d(-2%, 3%, 0) scale(1.08);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora {
+    animation: none;
+  }
+}
+
+/* subtle vignette so text stays readable over the 3D scene */
+.app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 80% at 50% 0%,
+    transparent 40%,
+    rgba(7, 7, 12, 0.55) 100%
+  );
+}
+
+main {
+  position: relative;
+  z-index: 2;
+}
+
+/* the site "unfolds" out of the reel once the loader clears */
+.main--pre {
+  opacity: 0;
+}
+.main--in {
+  animation: site-unfold 1.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: center top;
+}
+@keyframes site-unfold {
+  0% {
+    opacity: 0;
+    transform: perspective(1600px) rotateX(10deg) scale(1.12) translateY(40px);
+    filter: blur(10px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1600px) rotateX(0deg) scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main--pre {
+    opacity: 1;
+  }
+  .main--in {
+    animation: none;
+  }
+}

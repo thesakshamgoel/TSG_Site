@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" font-family="Georgia, 'Times New Roman', serif">
+  <rect width="800" height="600" fill="#f6f3ec"/>
+  <rect x="26" y="26" width="748" height="548" fill="none" stroke="#b9a06a" stroke-width="2"/>
+  <rect x="36" y="36" width="728" height="528" fill="none" stroke="#d8c9a3" stroke-width="1"/>
+  <text x="400" y="150" text-anchor="middle" font-size="20" letter-spacing="6" fill="#8a7a52">CERTIFIED USER</text>
+  <text x="400" y="240" text-anchor="middle" font-size="44" fill="#1c1a14">Introduction to</text>
+  <text x="400" y="292" text-anchor="middle" font-size="44" fill="#1c1a14">DaVinci Resolve 18</text>
+  <text x="400" y="360" text-anchor="middle" font-size="24" fill="#4a4335" font-style="italic">awarded to</text>
+  <text x="400" y="410" text-anchor="middle" font-size="34" fill="#1c1a14">Saksham Goel</text>
+  <text x="400" y="480" text-anchor="middle" font-size="18" fill="#6a604a">Blackmagic Design · July 13, 2023</text>
+  <text x="400" y="530" text-anchor="middle" font-size="13" letter-spacing="2" fill="#9a8c68">CERTIFICATE 426D-FC01-174F-440C</text>
+</svg>

@@ -1,0 +1,111 @@
+/* Global toast stack — bottom-right, above content + overlays (lightbox 200,
+   gallery 130, console 120), below the custom cursor (2000) and guard (5000). */
+.toasts {
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(360px, calc(100vw - 32px));
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 10px 12px 14px;
+  border-radius: 12px;
+  background: rgba(12, 12, 16, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #f5f2ea; /* ≥ 7:1 on the near-black panel */
+  font-size: 0.92rem;
+  line-height: 1.4;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: toast-in 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  outline: none;
+}
+
+/* visible focus for keyboard users (error toasts receive programmatic focus) */
+.toast:focus-visible,
+.toast:focus {
+  outline: 2px solid var(--gold, #e9b872);
+  outline-offset: 3px;
+}
+
+.toast__icon {
+  flex: none;
+  margin-top: 1px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+}
+.toast--success .toast__icon {
+  color: #43d17c;
+}
+.toast--info .toast__icon {
+  color: var(--gold, #e9b872);
+}
+.toast--error .toast__icon {
+  color: #ff6b6b;
+}
+.toast--error {
+  border-color: rgba(255, 107, 107, 0.5);
+}
+
+.toast__msg {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.toast__close {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #cfc9bd;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.toast__close:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+.toast__close:focus-visible {
+  outline: 2px solid var(--gold, #e9b872);
+  outline-offset: 1px;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+}
+
+/* mobile: sit above the fixed bottom tab bar + safe area */
+@media (max-width: 640px) {
+  .toasts {
+    left: 12px;
+    right: 12px;
+    bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+    width: auto;
+  }
+}

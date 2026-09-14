@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Saksham Goel — Cinematographer, Colorist & Graphic Designer. Film production, post production & DI, and graphic design."
+    />
+    <title>Saksham Goel — Film & Design</title>
+
+    <!-- Installable app (PWA): manifest, theme, and platform app metadata -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#050506" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Saksham Goel" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Social preview -->
+    <meta property="og:title" content="Saksham Goel — Film & Design" />
+    <meta
+      property="og:description"
+      content="Cinematographer, Colorist & Graphic Designer."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/icon-512.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root">
+      <!-- Fallback shown until the app mounts. If the bundle fails to load
+           (server/host down, offline), this stays visible so visitors get a
+           friendly message instead of a blank page. React replaces it on boot. -->
+      <div id="app-fallback">
+        <div class="afb__reel"></div>
+        <p class="afb__title">Saksham Goel</p>
+        <p class="afb__msg">Threading the reel… if this lingers, the site is briefly down for maintenance — back soon.</p>
+      </div>
+    </div>
+    <style>
+      #app-fallback{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:#050506;color:#b7b5ae;font-family:'Inter',system-ui,sans-serif;text-align:center;padding:24px;z-index:1}
+      #app-fallback .afb__reel{width:54px;height:54px;border-radius:50%;border:3px solid rgba(233,184,114,.25);border-top-color:#e9b872;animation:afb-spin 1s linear infinite}
+      #app-fallback .afb__title{font-family:'Fraunces',Georgia,serif;font-size:1.5rem;color:#f6f5f2;margin:0}
+      #app-fallback .afb__msg{max-width:340px;font-size:.95rem;margin:0;line-height:1.5}
+      @keyframes afb-spin{to{transform:rotate(360deg)}}
+      @media (prefers-reduced-motion:reduce){#app-fallback .afb__reel{animation:none}}
+    </style>
+    <script>
+      // If the app hasn't mounted after a while, show an explicit offline note.
+      window.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function () {
+          var fb = document.getElementById('app-fallback')
+          if (!fb) return // app mounted and replaced #root — all good
+          var msg = fb.querySelector('.afb__msg')
+          if (msg)
+            msg.textContent = navigator.onLine
+              ? "We're briefly down for maintenance — please check back in a few minutes."
+              : "You appear to be offline — reconnect and this will load automatically."
+        }, 8000)
+      })
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+.hud {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.hud__bracket {
+  position: fixed;
+  width: 26px;
+  height: 26px;
+  border: 2px solid rgba(233, 184, 114, 0.4);
+}
+.hud__bracket--tl {
+  top: 82px;
+  left: 26px;
+  border-right: none;
+  border-bottom: none;
+}
+.hud__bracket--tr {
+  top: 82px;
+  right: 26px;
+  border-left: none;
+  border-bottom: none;
+}
+.hud__bracket--bl {
+  bottom: 26px;
+  left: 26px;
+  border-right: none;
+  border-top: none;
+}
+.hud__bracket--br {
+  bottom: 26px;
+  right: 26px;
+  border-left: none;
+  border-top: none;
+}
+
+.hud__bar {
+  position: fixed;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hud__bar--left {
+  left: 60px;
+}
+.hud__bar--right {
+  right: 60px;
+}
+
+@media (max-width: 720px) {
+  /* the bottom tab bar owns the lower edge on mobile — hide HUD chrome that
+     would sit behind it */
+  .hud__bar,
+  .hud__bracket--bl,
+  .hud__bracket--br {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .hud__bar--right {
+    display: none;
+  }
+  .hud__bracket {
+    width: 18px;
+    height: 18px;
+  }
+  .hud__bar--left {
+    left: 54px;
+  }
+}

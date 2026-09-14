@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-test/
+dist-ssr
+*.local
+.vercel
+.DS_Store
+npm-debug.log*
+e2e-report/
+*.log

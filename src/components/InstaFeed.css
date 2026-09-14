@@ -1,0 +1,138 @@
+.insta {
+  padding: clamp(80px, 10vh, 120px) 0;
+}
+.insta__head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto clamp(32px, 5vh, 48px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.insta__widget {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #0b0b0e;
+  box-shadow: 0 34px 70px -40px rgba(0, 0, 0, 0.85);
+}
+.insta__perf {
+  display: block;
+  height: 16px;
+  background-size: auto 16px;
+  opacity: 0.6;
+}
+.insta__widget iframe {
+  width: 100%;
+  min-height: 360px;
+  border: 0;
+  display: block;
+  background: transparent;
+}
+.insta__widget--behold {
+  padding: 0;
+}
+.insta__widget--behold behold-widget {
+  display: block;
+  padding: 18px;
+}
+.insta__widget--elfsight {
+  position: relative;
+  padding: 18px;
+  min-height: 300px;
+}
+.insta__widget--elfsight > div[class^='elfsight-app-'] {
+  min-height: 260px;
+}
+/* transparent overlay that keeps page-scroll working over the embed and
+   routes any click to the Instagram profile */
+.insta__shield {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  cursor: pointer;
+}
+
+.insta__card {
+  position: relative;
+  z-index: 0; /* contain the glyph ring's negative z-index */
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 30px 34px;
+  max-width: 760px;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  flex-wrap: wrap;
+}
+.insta__card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 34px 64px -28px rgba(0, 0, 0, 0.85),
+    0 18px 44px -24px rgba(233, 184, 114, 0.25);
+}
+.insta__glyph {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  color: #fff;
+  background: linear-gradient(135deg, #f9ce34, #ee2a7b 45%, #6228d7);
+  flex-shrink: 0;
+}
+/* slowly rotating gold→pink→gold halo behind the glyph */
+.insta__glyph::before {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  z-index: -1;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    var(--gold),
+    #ee2a7b 32%,
+    var(--gold-soft) 55%,
+    #ee2a7b 78%,
+    var(--gold)
+  );
+  filter: blur(8px);
+  opacity: 0.55;
+  animation: insta-ring 6s linear infinite;
+}
+@keyframes insta-ring {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .insta__glyph::before {
+    animation: none;
+  }
+}
+.insta__card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 180px;
+}
+.insta__card-text strong {
+  font-size: 1.3rem;
+  font-family: var(--font-display);
+}
+.insta__card-text span {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+.insta__go {
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}

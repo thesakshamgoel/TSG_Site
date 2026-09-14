@@ -1,0 +1,77 @@
+/* Hide the native cursor only when the custom one is active */
+body.has-custom-cursor,
+body.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.cursor-cam {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  pointer-events: none;
+  color: var(--gold);
+  filter: drop-shadow(0 2px 14px rgba(233, 184, 114, 0.75));
+  transition: opacity 0.25s ease, filter 0.25s ease;
+  will-change: transform;
+}
+.cursor-cam.is-hidden {
+  opacity: 0;
+}
+.cursor-cam svg {
+  display: block;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease;
+  /* pivot hover-scale around the red REC dot so it stays on the pointer */
+  transform-origin: 35px 15px;
+}
+
+/* over a link / interactive element → RED + BOLD + bigger */
+.cursor-cam.is-hot {
+  color: #ff3b3b;
+  filter: drop-shadow(0 2px 18px rgba(255, 60, 60, 0.85));
+}
+.cursor-cam.is-hot svg {
+  transform: scale(1.5) rotate(-6deg);
+}
+.cursor-cam.is-hot svg rect,
+.cursor-cam.is-hot svg path,
+.cursor-cam.is-hot svg circle {
+  stroke-width: 3.2;
+}
+.cursor-cam.is-down svg {
+  transform: scale(0.9);
+}
+
+.cursor-rec {
+  animation: rec-blink 1.1s steps(1, end) infinite;
+}
+@keyframes rec-blink {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  61%,
+  100% {
+    opacity: 0.15;
+  }
+}
+
+/* strong ambient glow that trails the pointer — the whole site lights up */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 680px;
+  height: 680px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(233, 184, 114, 0.16) 0%,
+    rgba(233, 184, 114, 0.06) 34%,
+    transparent 68%
+  );
+  mix-blend-mode: screen;
+  will-change: transform;
+}

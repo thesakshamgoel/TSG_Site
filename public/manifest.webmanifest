@@ -1,0 +1,20 @@
+{
+  "name": "Saksham Goel — Film & Design",
+  "short_name": "Saksham Goel",
+  "description": "Cinematographer, Colorist & Graphic Designer — film production, post production & DI, and graphic design.",
+  "id": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#050506",
+  "theme_color": "#050506",
+  "categories": ["portfolio", "photo", "entertainment"],
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" },
+    { "src": "/icon-maskable-512.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" }
+  ]
+}

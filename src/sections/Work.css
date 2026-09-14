@@ -1,0 +1,312 @@
+.work {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: clamp(96px, 11vh, 130px) 0;
+}
+
+.work__head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto clamp(28px, 4vh, 44px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* two large rounded-rectangle cards, inline within the container */
+.work__panels {
+  display: flex;
+  gap: clamp(16px, 2vw, 28px);
+  perspective: 1600px;
+  align-items: stretch;
+}
+
+/* registered as <angle> so the pointer tilt eases smoothly;
+   in browsers without @property the tilt still works, just without easing */
+@property --panel-rx {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --panel-ry {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.panel {
+  --px: 0;
+  --py: 0;
+  /* true 3D tilt, consumed by the inline transform (via transformTemplate in JSX);
+     perspective is inherited from .work__panels */
+  --panel-rx: calc(var(--py) * -3deg);
+  --panel-ry: calc(var(--px) * 4deg);
+  position: relative;
+  flex: 1 1 50%;
+  min-width: 0;
+  height: clamp(400px, 54vh, 600px);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  background: #08080b;
+  color: var(--text);
+  /* no overflow:hidden here — it would force transform-style to flatten and
+     kill the translateZ depth layers; clipping now lives on .panel__media */
+  cursor: pointer;
+  text-align: left;
+  transform-style: preserve-3d;
+  transition: flex-grow 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease, box-shadow 0.4s ease,
+    --panel-rx 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    --panel-ry 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.8);
+}
+.panel.is-active {
+  flex-grow: 1.35;
+  border-color: color-mix(in srgb, var(--gold) 55%, transparent);
+  box-shadow: 0 50px 90px -34px rgba(0, 0, 0, 0.9),
+    0 0 46px -14px rgba(233, 184, 114, 0.28);
+}
+.panel.is-dimmed {
+  flex-grow: 0.78;
+}
+
+.panel__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+.panel__media img {
+  /* -8% overscan (previously on .panel__media) kept here so the
+     pointer parallax never reveals the card edges */
+  position: absolute;
+  top: -8%;
+  left: -8%;
+  width: 116%;
+  height: 116%;
+  object-fit: cover;
+  filter: grayscale(0.5) brightness(0.42) contrast(1.05);
+  transform: scale(1.06) translate(calc(var(--px) * -12px), calc(var(--py) * -12px));
+  transition: transform 0.4s ease, filter 0.6s ease;
+}
+.panel.is-active .panel__media img {
+  filter: grayscale(0) brightness(0.72) contrast(1.05);
+  transform: scale(1.12) translate(calc(var(--px) * -20px), calc(var(--py) * -20px));
+}
+.panel__ph {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 7rem;
+  color: rgba(233, 184, 114, 0.25);
+}
+.panel__ph--title {
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  color: var(--gold);
+  padding: 30px;
+  text-align: center;
+  line-height: 1.25;
+  background: radial-gradient(120% 120% at 30% 20%, rgba(233, 184, 114, 0.14), #08080a);
+}
+.panel__scan {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 3px);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.panel__grad {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(5, 5, 6, 0.5) 0%, transparent 34%, rgba(5, 5, 6, 0.9) 100%);
+}
+
+/* content with generous, safe padding so nothing clips at the rounded edges */
+.panel__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(24px, 3vw, 44px);
+  /* depth layer: text plane floats off the imagery when the card tilts */
+  transform: translateZ(34px);
+  transform-style: preserve-3d;
+}
+.panel__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.panel__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* keeps the title's translateZ from being flattened */
+  transform-style: preserve-3d;
+}
+.panel__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.8rem, 3.4vw, 3.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: #fff;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  /* extra depth on top of .panel__content's 34px */
+  transform: translateZ(26px);
+}
+.panel__tag {
+  color: var(--gold);
+  font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+}
+.panel__subs {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+  opacity: 0.55;
+  transform: translateY(6px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.panel.is-active .panel__subs {
+  opacity: 1;
+  transform: translateY(0);
+}
+.panel__subs li {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  padding: 6px 11px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  transform: translateY(8px);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0s; /* chips fall back together on leave */
+}
+.panel.is-active .panel__subs li {
+  transform: translateY(0);
+}
+/* one-by-one rise while active */
+.panel.is-active .panel__subs li:nth-child(1) {
+  transition-delay: 0s;
+}
+.panel.is-active .panel__subs li:nth-child(2) {
+  transition-delay: 0.06s;
+}
+.panel.is-active .panel__subs li:nth-child(3) {
+  transition-delay: 0.12s;
+}
+.panel.is-active .panel__subs li:nth-child(n + 4) {
+  transition-delay: 0.18s;
+}
+.panel__enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+.panel.is-active .panel__enter {
+  opacity: 1;
+}
+.panel__arrow {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.panel:hover .panel__arrow {
+  transform: translateX(10px);
+}
+
+/* hover border sweep: conic glow masked to a 1px ring around the card.
+   The oversized ::before plate rotates via transform (GPU-friendly);
+   the two-layer mask xor keeps only the 1px frame visible. */
+.panel__ring {
+  position: absolute;
+  inset: -1px;
+  z-index: 3;
+  border-radius: 27px;
+  padding: 1px;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.panel__ring::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(233, 184, 114, 0.5) 62deg,
+    var(--gold) 88deg,
+    var(--gold-soft) 100deg,
+    rgba(233, 184, 114, 0.5) 126deg,
+    transparent 190deg,
+    transparent 360deg
+  );
+  animation: panel-ring-spin 6s linear infinite;
+  animation-play-state: paused;
+}
+.panel:hover .panel__ring,
+.panel:focus-visible .panel__ring,
+.panel.is-active .panel__ring {
+  opacity: 0.6;
+}
+.panel:hover .panel__ring::before,
+.panel:focus-visible .panel__ring::before,
+.panel.is-active .panel__ring::before {
+  animation-play-state: running;
+}
+@keyframes panel-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    --panel-rx: 0deg;
+    --panel-ry: 0deg;
+  }
+  .panel__ring::before {
+    animation: none;
+  }
+}
+
+@media (max-width: 820px) {
+  .work__panels {
+    flex-direction: column;
+  }
+  .panel {
+    height: clamp(340px, 46vh, 460px);
+  }
+  .panel.is-active,
+  .panel.is-dimmed {
+    flex-grow: 1;
+  }
+}
