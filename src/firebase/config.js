@@ -12,10 +12,15 @@
  * vars.
  *
  * Precedence:
- *   1. VITE_FIREBASE_* env vars, when set to a non-empty value → they override.
- *   2. The built-in config below (project sg-website-62a7a).
- *   3. A value set to an EMPTY STRING (see .env.test) wins with '' →
- *      firebaseEnabled = false → local mode (used by the e2e suite).
+ *   1. VITE_FIREBASE_DISABLED=true (see .env.test) → hard local mode, used by
+ *      the e2e suite. Anything else, Firebase is on.
+ *   2. VITE_FIREBASE_* env vars, when set to a NON-EMPTY value → they override
+ *      the built-in config.
+ *   3. The built-in config below (project sg-website-62a7a).
+ *
+ * Empty-string env vars are treated the same as unset. This matters in the
+ * real world: a host like Vercel with VITE_FIREBASE_* defined but left blank
+ * used to bake '' into the bundle and silently kill the Sign in button.
  */
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
@@ -30,9 +35,11 @@ const BUILTIN = {
   appId: '1:360166898853:web:6814ee1d7661aae43ce14c',
 }
 
-// `== null` on purpose (not `!v`): an empty string deliberately disables
-// Firebase (test mode), while an *unset* variable falls back to built-in.
-const pick = (envValue, builtin) => (envValue == null ? builtin : envValue)
+// `== null || ''` on purpose: blank host env vars (a common Vercel setup
+// slip) must NOT silently kill auth — unset and blank both fall back to the
+// built-in config. Test mode uses VITE_FIREBASE_DISABLED=true instead.
+const pick = (envValue, builtin) =>
+  envValue == null || envValue === '' ? builtin : envValue
 
 const cfg = {
   apiKey: pick(import.meta.env.VITE_FIREBASE_API_KEY, BUILTIN.apiKey),
@@ -46,7 +53,10 @@ const cfg = {
   appId: pick(import.meta.env.VITE_FIREBASE_APP_ID, BUILTIN.appId),
 }
 
-export const firebaseEnabled = !!(cfg.apiKey && cfg.projectId && cfg.appId)
+// Explicit escape hatch for the e2e suite / headless CI (see .env.test).
+const FORCED_OFF = import.meta.env.VITE_FIREBASE_DISABLED === 'true'
+
+export const firebaseEnabled = !FORCED_OFF && !!(cfg.apiKey && cfg.projectId && cfg.appId)
 
 // The one account allowed into the developer console.
 export const OWNER_EMAIL = (
