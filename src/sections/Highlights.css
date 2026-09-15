@@ -200,9 +200,10 @@
 }
 
 @media (max-width: 720px) {
-  .hl {
+  /* .section.* beats global.css's .section rule, which loads later in the bundle */
+  .section.hl {
     min-height: 0;
-    padding: 72px 0 56px;
+    padding: 48px 0;
   }
   .hl__head {
     margin-bottom: 22px;

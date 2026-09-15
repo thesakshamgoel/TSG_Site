@@ -2,8 +2,9 @@
   padding: clamp(80px, 10vh, 120px) 0;
 }
 @media (max-width: 720px) {
-  .insta {
-    padding: 64px 0 56px;
+  /* .section.* beats global.css's .section rule, which loads later in the bundle */
+  .section.insta {
+    padding: 48px 0;
   }
   .insta__head {
     margin-bottom: 24px;

@@ -251,9 +251,10 @@
 }
 
 @media (max-width: 720px) {
-  .ba {
+  /* .section.* beats global.css's .section rule, which loads later in the bundle */
+  .section.ba {
     min-height: 0;
-    padding: 72px 0 56px;
+    padding: 48px 0;
   }
   .ba__reel {
     width: 100%;

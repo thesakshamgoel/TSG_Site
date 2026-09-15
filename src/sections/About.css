@@ -149,10 +149,10 @@
   .about__portrait {
     justify-self: start;
   }
-  /* phone-sized rhythm: the desktop spacing is too airy at 390px */
-  .about {
-    padding-top: 96px;
-    padding-bottom: 96px;
+  /* phone-sized rhythm: the desktop spacing is too airy at 390px.
+     .section.* needed to beat global.css's .section rule (loads later) */
+  .section.about {
+    padding: 48px 0;
   }
   .chapter {
     margin-top: 54px;

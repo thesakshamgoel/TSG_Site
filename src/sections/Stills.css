@@ -152,6 +152,11 @@
 }
 
 @media (max-width: 720px) {
+  /* .section.* beats global.css's .section rule, which loads later in the bundle */
+  .section.stills {
+    min-height: 0;
+    padding: 48px 0;
+  }
   .stills__frame {
     height: 52vh;
   }

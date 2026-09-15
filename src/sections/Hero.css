@@ -219,8 +219,9 @@
 }
 
 @media (max-width: 720px) {
-  .hero {
-    padding: 96px 0 80px;
+  /* .section.* beats global.css's .section rule, which loads later in the bundle */
+  .section.hero {
+    padding: 96px 0 48px;
   }
   /* the bottom tab bar covers this spot on mobile — drop the hint */
   .hero__scrollhint {
