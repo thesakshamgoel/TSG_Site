@@ -173,42 +173,35 @@ img {
   }
 }
 
-/* ── Liquid Glass buttons (Apple-style, minimal) ─────────────────────────
-   Frosted, refractive translucency with a specular top highlight and a soft
-   inner rim of light. Applied to every .btn across the site. */
+/* ── Buttons — flat, quiet, refined ────────────────────────────────────────
+   A single hairline border on a near-flat dark fill; no glass, no inset
+   chrome. Hover speaks only through the border turning gold with a soft
+   glow — the whole state change is the outline. Applied to every .btn. */
 .btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 13px 24px;
+  padding: 13px 26px;
   border-radius: 100px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  /* top: specular catch-light · bottom: frosted glass tint (both below text) */
-  background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.26),
-      rgba(255, 255, 255, 0) 46%
-    ),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
   color: var(--text);
   font-weight: 600;
   font-size: 0.95rem;
-  overflow: hidden;
-  backdrop-filter: blur(16px) saturate(1.8);
-  -webkit-backdrop-filter: blur(16px) saturate(1.8);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    inset 0 -12px 20px -16px rgba(0, 0, 0, 0.6),
-    0 8px 24px -16px rgba(0, 0, 0, 0.8);
-  transition: transform 0.25s ease, border-color 0.25s ease,
-    box-shadow 0.25s ease, background 0.25s ease;
+  letter-spacing: 0.01em;
+  transition: border-color 0.22s ease, background 0.22s ease,
+    box-shadow 0.22s ease, color 0.22s ease;
 }
 .btn:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -12px 20px -16px rgba(0, 0, 0, 0.6),
-    0 16px 34px -16px rgba(0, 0, 0, 0.85);
+  border-color: var(--gold);
+  background: rgba(233, 184, 114, 0.07);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(233, 184, 114, 0.22),
+    0 6px 26px -10px rgba(233, 184, 114, 0.38);
+}
+.btn:active {
+  background: rgba(233, 184, 114, 0.12);
 }
 .btn.primary {
   position: relative;
