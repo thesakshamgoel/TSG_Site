@@ -1,6 +1,14 @@
 .insta {
   padding: clamp(80px, 10vh, 120px) 0;
 }
+@media (max-width: 720px) {
+  .insta {
+    padding: 64px 0 56px;
+  }
+  .insta__head {
+    margin-bottom: 24px;
+  }
+}
 .insta__head {
   text-align: center;
   max-width: 720px;

@@ -201,7 +201,8 @@
 
 @media (max-width: 720px) {
   .hl {
-    padding: 88px 0 44px;
+    min-height: 0;
+    padding: 72px 0 56px;
   }
   .hl__head {
     margin-bottom: 22px;

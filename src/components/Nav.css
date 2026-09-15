@@ -103,6 +103,18 @@
     display: none;
   }
   .nav__name {
-    display: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+  .nav__brand {
+    gap: 9px;
+  }
+  .nav__logo {
+    height: 28px;
+  }
+  .nav__cta {
+    padding: 8px 13px;
+    font-size: 0.78rem;
   }
 }

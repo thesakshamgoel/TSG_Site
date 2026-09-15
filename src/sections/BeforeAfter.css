@@ -251,6 +251,10 @@
 }
 
 @media (max-width: 720px) {
+  .ba {
+    min-height: 0;
+    padding: 72px 0 56px;
+  }
   .ba__reel {
     width: 100%;
   }
