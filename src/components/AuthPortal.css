@@ -141,10 +141,10 @@
 }
 
 @media (max-width: 720px) {
-  .authportal__signin span {
-    display: none; /* icon-only pill on small screens */
-  }
+  /* keep the "Sign in" text visible on phones — the icon-only version
+     read as a missing button */
   .authportal__signin {
-    padding: 8px 11px;
+    padding: 8px 13px;
+    font-size: 0.8rem;
   }
 }

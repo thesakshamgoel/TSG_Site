@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import Reveal from '../components/Reveal'
 import { emailEnabled, sendEmail } from '../data/email'
-import { WORKFLOW } from '../data/seed'
 import { toast } from '../components/Toast'
 import { firebaseEnabled } from '../firebase/config'
 import { watchUser, signInVisitor, signOutUser } from '../firebase/auth'
@@ -384,21 +383,7 @@ export default function About({
           </div>
         </Chapter>
 
-        <Chapter no="03" title="Post-Production Workflow">
-          <div className="workflow">
-            {WORKFLOW.map((w, i) => (
-              <Reveal key={w.no} delay={0.06 * i}>
-                <div className="workflow__step glass">
-                  <span className="workflow__no timecode">{w.no}</span>
-                  <h4>{w.title}</h4>
-                  <p>{w.detail}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </Chapter>
-
-        <Chapter no="04" title="Reviews">
+        <Chapter no="03" title="Reviews">
           <div className="reviews" id="reviews">
             {reviews.map((r, i) => (
               <Reveal key={r.id} delay={0.06 * (i % 3)}>
@@ -415,7 +400,7 @@ export default function About({
           </div>
         </Chapter>
 
-        <Chapter no="05" title="Start a Project">
+        <Chapter no="04" title="Start a Project">
           <div className="contact" id="contact">
             <div className="contact__intro">
               <h4>Let's roll.</h4>
