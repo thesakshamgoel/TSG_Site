@@ -1,15 +1,19 @@
 /**
- * Minimal, safe service worker — just enough to make the site installable as an
- * app and resilient offline, without ever serving stale content.
+ * Minimal, safe service worker — just enough to make the site installable as
+ * an app and resilient offline, without ever serving stale content.
  *
  * Strategy:
  *  • Navigations (HTML): network-first, fall back to the cached shell offline.
  *    → always fresh when online; still opens when the network is gone.
- *  • Hashed build assets (/assets/*, images, fonts): cache-first (they're
- *    content-hashed, so a new deploy = new URLs; the cache can't go stale).
+ *  • Hashed build assets (/assets/*): cache-first (content-hashed URLs, so a
+ *    new deploy = new URLs and the cache can't go stale).
+ *  • Unhashed files (images in /graphics, /stills, …): NETWORK-FIRST — these
+ *    are editable in place without a new URL, so a cache-first policy would
+ *    pin the old bytes (this is exactly the stale black-edged photo bug).
+ *    The cached copy is only the offline fallback.
  *  • Everything cross-origin (YouTube, Firebase, fonts CDN): left to the network.
  */
-const VERSION = 'sg-v1'
+const VERSION = 'sg-v2' // bump to force every device to drop its old cache
 const SHELL = `${VERSION}-shell`
 const ASSETS = `${VERSION}-assets`
 const SHELL_URLS = ['/', '/index.html', '/favicon.svg', '/manifest.webmanifest']
@@ -56,8 +60,8 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
-  // static assets → cache-first (hashed filenames make this always-fresh)
-  if (/\/assets\/|\.(?:js|css|woff2?|png|jpe?g|svg|webp|ico)$/.test(url.pathname)) {
+  // hashed build assets → cache-first (new deploys use new URLs)
+  if (/\/assets\//.test(url.pathname)) {
     event.respondWith(
       caches.match(request).then(
         (hit) =>
@@ -68,6 +72,23 @@ self.addEventListener('fetch', (event) => {
             return res
           })
       )
+    )
+    return
+  }
+
+  // unhashed static files (photos, fonts, icons) → network-first with offline
+  // fallback: always serve the current bytes, keep the cache only for offline
+  if (/\.(?:js|css|woff2?|png|jpe?g|svg|webp|ico)$/.test(url.pathname)) {
+    event.respondWith(
+      fetch(request)
+        .then((res) => {
+          if (res && res.ok) {
+            const copy = res.clone()
+            caches.open(ASSETS).then((c) => c.put(request, copy)).catch(() => {})
+          }
+          return res
+        })
+        .catch(() => caches.match(request))
     )
   }
 })
