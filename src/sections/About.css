@@ -651,10 +651,50 @@
   flex-wrap: wrap;
 }
 
+/* post-production workflow pipeline */
+.workflow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.workflow__step {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 20px;
+  border-radius: var(--radius);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.workflow__step:hover {
+  border-color: color-mix(in srgb, var(--gold) 45%, transparent);
+  transform: translateY(-3px);
+}
+.workflow__no {
+  color: var(--gold);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+}
+.workflow__step h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+.workflow__step p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
 @media (max-width: 900px) {
   .certs,
   .reviews {
     grid-template-columns: 1fr;
+  }
+  .workflow {
+    grid-template-columns: 1fr 1fr;
   }
   .contact {
     grid-template-columns: 1fr;

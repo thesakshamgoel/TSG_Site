@@ -74,6 +74,20 @@ export default function Hero({ profile, onExplore }) {
           {profile.tagline}
         </motion.p>
 
+        {profile.skills?.length > 0 && (
+          <motion.ul
+            className="hero__chips"
+            aria-label="Skills"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {profile.skills.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </motion.ul>
+        )}
+
         <motion.p
           className="hero__intro"
           initial={{ opacity: 0, y: 18 }}
@@ -82,6 +96,23 @@ export default function Hero({ profile, onExplore }) {
         >
           {profile.intro}
         </motion.p>
+
+        {profile.stats?.length > 0 && (
+          <motion.div
+            className="hero__stats"
+            aria-label="Track record"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {profile.stats.map((s) => (
+              <div className="hero__stat" key={s.label}>
+                <b>{s.value}</b>
+                <span>{s.label}</span>
+              </div>
+            ))}
+          </motion.div>
+        )}
 
         {/* film-strip accent */}
         <motion.div

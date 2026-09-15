@@ -410,6 +410,34 @@ export const CERTIFICATES = [
   },
 ]
 
+// Post-production pipeline shown as a chapter in the About section
+export const WORKFLOW = [
+  {
+    no: '01',
+    title: 'Assembly & Narrative Structure',
+    detail:
+      'Ingest RAW logs and ProRes proxies, then build the narrative pacing with precise cuts and emotional beats.',
+  },
+  {
+    no: '02',
+    title: 'Sound Design & Audio Mix',
+    detail:
+      'Layer Foley, stems, score cues and impacts — with cleaning and bespoke score synchronisation.',
+  },
+  {
+    no: '03',
+    title: 'Color Science & Look Dev',
+    detail:
+      'Build primary grades, isolate skin tones and craft custom look curves for the final image.',
+  },
+  {
+    no: '04',
+    title: 'Mastering & Delivery',
+    detail:
+      'Export H.264/H.265, ProRes and DCI-P3 film masters, plus optimised social cuts for Instagram and YouTube.',
+  },
+]
+
 // Latest stills for the home slideshow (max 5 shown). Drop your frames at
 // public/stills/still-1.jpg … still-5.jpg (any aspect; they're letterboxed).
 export const STILLS = [
@@ -490,6 +518,20 @@ export const PROFILE = {
   tagline: 'Post Production & Design Studio',
   intro:
     'I make films look the way stories feel — from the set to the grade to the final frame on screen.',
+  // Quick proof points shown in the hero (kept in sync with your other site)
+  stats: [
+    { value: '100+', label: 'Films & Edits' },
+    { value: '10+', label: 'Global Brands' },
+    { value: '3', label: 'Festival Honors' },
+    { value: '4', label: 'Years Experience' },
+  ],
+  // One-line skill chips under the tagline
+  skills: [
+    'Commercial Post',
+    'Narrative Shorts',
+    'DaVinci Resolve Color',
+    'Sound Design & Mix',
+  ],
   email: 'thesakshamgoel@gmail.com',
   phone: '+91 75081 81811',
   // Passcode to open the developer console (owner-only). Change this to your

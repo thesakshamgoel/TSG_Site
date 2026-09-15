@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Reveal from '../components/Reveal'
 import { emailEnabled, sendEmail } from '../data/email'
+import { WORKFLOW } from '../data/seed'
 import { toast } from '../components/Toast'
 import { firebaseEnabled } from '../firebase/config'
 import { watchUser, signInVisitor, signOutUser } from '../firebase/auth'
@@ -52,7 +53,9 @@ function ContactForm({ email, user }) {
   const [form, setForm] = useState({
     name: user?.displayName || '',
     email: user?.email || '',
-    type: 'Film / Video Production',
+    type: 'Narrative Short / Feature',
+    budget: 'Under $2,000',
+    timeline: 'Within 2 – 4 weeks',
     message: '',
   })
   const [sent, setSent] = useState(false)
@@ -62,7 +65,7 @@ function ContactForm({ email, user }) {
   const mailtoFallback = () => {
     const subject = encodeURIComponent(`New enquiry — ${form.type} — ${form.name}`)
     const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nProject: ${form.type}\n\n${form.message}`
+      `Name: ${form.name}\nEmail: ${form.email}\nProject: ${form.type}\nBudget: ${form.budget}\nTimeline: ${form.timeline}\n\n${form.message}`
     )
     window.location.href = `mailto:${email}?subject=${subject}&body=${body}`
   }
@@ -92,6 +95,8 @@ function ContactForm({ email, user }) {
           Name: form.name,
           Email: form.email,
           Project: form.type,
+          Budget: form.budget,
+          Timeline: form.timeline,
           Brief: form.message,
         })
         setSent(true)
@@ -118,14 +123,37 @@ function ContactForm({ email, user }) {
         </label>
       </div>
       <label>
-        <span>Project</span>
+        <span>Project scope</span>
         <select value={form.type} onChange={(e) => set('type', e.target.value)}>
-          <option>Film / Video Production</option>
+          <option>Commercial Trailer / Spot</option>
+          <option>Official Music Video</option>
+          <option>Documentary / Sports Feature</option>
+          <option>Narrative Short / Feature</option>
+          <option>Colour Grading &amp; Finishing</option>
           <option>Photo &amp; Graphics</option>
-          <option>Colour / DI</option>
           <option>Other</option>
         </select>
       </label>
+      <div className="cform__row">
+        <label>
+          <span>Budget</span>
+          <select value={form.budget} onChange={(e) => set('budget', e.target.value)}>
+            <option>Under $2,000</option>
+            <option>$2,000 – $5,000</option>
+            <option>$5,000 – $10,000</option>
+            <option>$10,000+</option>
+          </select>
+        </label>
+        <label>
+          <span>Timeline</span>
+          <select value={form.timeline} onChange={(e) => set('timeline', e.target.value)}>
+            <option>Urgent (&lt; 1 week)</option>
+            <option>Within 2 – 4 weeks</option>
+            <option>1 – 2 months</option>
+            <option>Flexible schedule</option>
+          </select>
+        </label>
+      </div>
       <label>
         <span>Brief</span>
         <textarea required rows={4} value={form.message} onChange={(e) => set('message', e.target.value)} placeholder="Tell me about the project, timeline and budget…" />
@@ -356,7 +384,21 @@ export default function About({
           </div>
         </Chapter>
 
-        <Chapter no="03" title="Reviews">
+        <Chapter no="03" title="Post-Production Workflow">
+          <div className="workflow">
+            {WORKFLOW.map((w, i) => (
+              <Reveal key={w.no} delay={0.06 * i}>
+                <div className="workflow__step glass">
+                  <span className="workflow__no timecode">{w.no}</span>
+                  <h4>{w.title}</h4>
+                  <p>{w.detail}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </Chapter>
+
+        <Chapter no="04" title="Reviews">
           <div className="reviews" id="reviews">
             {reviews.map((r, i) => (
               <Reveal key={r.id} delay={0.06 * (i % 3)}>
@@ -373,7 +415,7 @@ export default function About({
           </div>
         </Chapter>
 
-        <Chapter no="04" title="Start a Project">
+        <Chapter no="05" title="Start a Project">
           <div className="contact" id="contact">
             <div className="contact__intro">
               <h4>Let's roll.</h4>
