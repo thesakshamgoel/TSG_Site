@@ -25,12 +25,39 @@
   object-fit: cover;
   filter: grayscale(0.2) contrast(1.03);
 }
-.about__portrait-tag {
+/* nameplate card over the portrait — name + designation on a frosted panel */
+.about__portrait-card {
   position: absolute;
-  left: 12px;
+  left: 10px;
+  right: 10px;
   bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 11px 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(12, 12, 15, 0.62);
+  backdrop-filter: blur(10px) saturate(1.3);
+  -webkit-backdrop-filter: blur(10px) saturate(1.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  text-align: left;
+}
+.about__portrait-card strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
   color: #fff;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.about__portrait-card span {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold);
 }
 .about__portrait-ph {
   width: 100%;

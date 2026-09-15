@@ -38,34 +38,31 @@ export default function Hero({ profile, onExplore }) {
           Portfolio · Reel 2026
         </motion.span>
 
-        {/* pointer-parallax wrapper — floats the name card against the section tilt */}
+        {/* pointer-parallax wrapper — floats the name against the section tilt */}
         <div className="hero__name-float">
-          <motion.div
-            className="hero__namecard"
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          <motion.h1
+            className="hero__name hero__breathe"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <motion.h1 className="hero__name hero__breathe">
-              {nameWords.map((word, i) => (
-                <span className="hero__word-mask" key={`${word}-${i}`}>
-                  <motion.span
-                    className="hero__word"
-                    initial={{ y: '110%' }}
-                    animate={{ y: '0%' }}
-                    transition={{
-                      duration: 0.9,
-                      delay: 0.2 + i * 0.12,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                  >
-                    {word}
-                  </motion.span>
-                </span>
-              ))}
-            </motion.h1>
-            <span className="hero__role">Filmmaker</span>
-          </motion.div>
+            {nameWords.map((word, i) => (
+              <span className="hero__word-mask" key={`${word}-${i}`}>
+                <motion.span
+                  className="hero__word"
+                  initial={{ y: '110%' }}
+                  animate={{ y: '0%' }}
+                  transition={{
+                    duration: 0.9,
+                    delay: 0.2 + i * 0.12,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  {word}
+                </motion.span>
+              </span>
+            ))}
+          </motion.h1>
         </div>
 
         <motion.p

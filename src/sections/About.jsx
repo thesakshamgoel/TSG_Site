@@ -321,7 +321,10 @@ export default function About({
                   <span className="timecode">public/photo.jpg</span>
                 </div>
               )}
-              <span className="about__portrait-tag timecode">{profile.name}</span>
+              <div className="about__portrait-card">
+                <strong>{profile.name}</strong>
+                <span>Filmmaker</span>
+              </div>
             </div>
           </div>
         </Reveal>
