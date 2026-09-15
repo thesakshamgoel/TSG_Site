@@ -10,6 +10,12 @@
   gap: 40px;
   align-items: center;
 }
+/* photo + nameplate stack */
+.about__portrait-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .about__portrait {
   position: relative;
   width: clamp(180px, 22vw, 260px);
@@ -25,12 +31,9 @@
   object-fit: cover;
   filter: grayscale(0.2) contrast(1.03);
 }
-/* nameplate card over the portrait — name + designation on a frosted panel */
+/* nameplate card under the photo — name + designation on a frosted panel */
 .about__portrait-card {
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -146,7 +149,7 @@
   .about__lead {
     grid-template-columns: 1fr;
   }
-  .about__portrait {
+  .about__portrait-wrap {
     justify-self: start;
   }
   /* phone-sized rhythm: the desktop spacing is too airy at 390px.

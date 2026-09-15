@@ -307,20 +307,22 @@ export default function About({
               </p>
               {profile.bio && <p className="about__bio">{profile.bio}</p>}
             </div>
-            <div className="about__portrait">
-              {profile.photo && photoOk ? (
-                <img src={profile.photo} alt={profile.name} onError={() => setPhotoOk(false)} />
-              ) : (
-                <div className="about__portrait-ph">
-                  <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" strokeWidth="1.4">
-                    <rect x="3" y="6" width="18" height="13" rx="3" />
-                    <circle cx="12" cy="12.5" r="3.3" />
-                    <path d="M8 6l1.4-2h5.2L16 6" />
-                  </svg>
-                  <span>Add your portrait</span>
-                  <span className="timecode">public/photo.jpg</span>
-                </div>
-              )}
+            <div className="about__portrait-wrap">
+              <div className="about__portrait">
+                {profile.photo && photoOk ? (
+                  <img src={profile.photo} alt={profile.name} onError={() => setPhotoOk(false)} />
+                ) : (
+                  <div className="about__portrait-ph">
+                    <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" strokeWidth="1.4">
+                      <rect x="3" y="6" width="18" height="13" rx="3" />
+                      <circle cx="12" cy="12.5" r="3.3" />
+                      <path d="M8 6l1.4-2h5.2L16 6" />
+                    </svg>
+                    <span>Add your portrait</span>
+                    <span className="timecode">public/photo.jpg</span>
+                  </div>
+                )}
+              </div>
               <div className="about__portrait-card">
                 <strong>{profile.name}</strong>
                 <span>Filmmaker</span>
