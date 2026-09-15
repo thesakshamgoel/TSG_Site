@@ -87,12 +87,12 @@
   width: 116%;
   height: 116%;
   object-fit: cover;
-  filter: grayscale(0.5) brightness(0.42) contrast(1.05);
+  filter: grayscale(0.3) brightness(0.62) contrast(1.02);
   transform: scale(1.06) translate(calc(var(--px) * -12px), calc(var(--py) * -12px));
   transition: transform 0.4s ease, filter 0.6s ease;
 }
 .panel.is-active .panel__media img {
-  filter: grayscale(0) brightness(0.72) contrast(1.05);
+  filter: grayscale(0) brightness(0.85) contrast(1.02);
   transform: scale(1.12) translate(calc(var(--px) * -20px), calc(var(--py) * -20px));
 }
 .panel__ph {
@@ -120,11 +120,19 @@
   mix-blend-mode: overlay;
   pointer-events: none;
 }
+/* readability fade only — the old version blacked out the top AND bottom
+   edges of the card, so the photo read as 'cut off in black' */
 .panel__grad {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(5, 5, 6, 0.5) 0%, transparent 34%, rgba(5, 5, 6, 0.9) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(5, 5, 6, 0.2) 0%,
+    transparent 26%,
+    transparent 50%,
+    rgba(5, 5, 6, 0.82) 100%
+  );
 }
 
 /* content with generous, safe padding so nothing clips at the rounded edges */
