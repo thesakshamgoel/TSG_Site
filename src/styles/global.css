@@ -88,6 +88,12 @@ img {
   color: #000;
 }
 
+/* Consistent keyboard focus ring — gold, matches the design */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;

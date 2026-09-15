@@ -194,6 +194,7 @@
   top: 14px;
   right: 16px;
   z-index: 3;
+  min-height: 44px;
   padding: 7px 14px;
   border-radius: 100px;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -208,6 +209,12 @@
 }
 .ba__stage:hover .ba__expand {
   opacity: 1;
+}
+/* touch devices never fire :hover — keep the fullscreen button visible */
+@media (hover: none) {
+  .ba__expand {
+    opacity: 1;
+  }
 }
 
 .ba__controls {
@@ -236,6 +243,7 @@
   gap: 10px;
 }
 .ba__dot {
+  position: relative; /* ::before widens the tap area to ~44px */
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -243,6 +251,13 @@
   background: transparent;
   padding: 0;
   transition: background 0.25s ease, transform 0.25s ease;
+}
+.ba__dot::before {
+  content: '';
+  position: absolute;
+  inset: -17px;
+  border-radius: 50%;
+  z-index: -1;
 }
 .ba__dot.is-on {
   background: var(--gold);

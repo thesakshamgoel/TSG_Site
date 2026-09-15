@@ -36,7 +36,7 @@
   transition: height 0.15s linear;
 }
 .sprog__node {
-  position: absolute;
+  position: absolute; /* ::before widens the tap area to ~44px */
   left: 50%;
   transform: translate(-50%, -50%);
   width: 9px;
@@ -47,6 +47,13 @@
   padding: 0;
   cursor: pointer;
   transition: transform 0.25s ease, background 0.25s ease;
+}
+.sprog__node::before {
+  content: '';
+  position: absolute;
+  inset: -17px;
+  border-radius: 50%;
+  z-index: -1;
 }
 .sprog__node.is-on {
   background: var(--gold);

@@ -114,11 +114,11 @@ function ContactForm({ email, user }) {
       <div className="cform__row">
         <label>
           <span>Name</span>
-          <input required value={form.name} onChange={(e) => set('name', e.target.value)} placeholder="Your name" />
+          <input required autoComplete="name" value={form.name} onChange={(e) => set('name', e.target.value)} placeholder="Your name" />
         </label>
         <label>
           <span>Email</span>
-          <input required type="email" value={form.email} onChange={(e) => set('email', e.target.value)} placeholder="you@studio.com" />
+          <input required type="email" autoComplete="email" value={form.email} onChange={(e) => set('email', e.target.value)} placeholder="you@studio.com" />
         </label>
       </div>
       <label>
@@ -237,12 +237,13 @@ function ReviewForm({ email, user }) {
       <div className="cform__row">
         <label>
           <span>Name</span>
-          <input required value={form.name} onChange={(e) => set('name', e.target.value)} placeholder="Your name" />
+          <input required autoComplete="name" value={form.name} onChange={(e) => set('name', e.target.value)} placeholder="Your name" />
         </label>
         <label>
           <span>Role / Project</span>
           <input
             required
+            autoComplete="organization"
             value={form.role}
             onChange={(e) => set('role', e.target.value)}
             placeholder="Director, 'Question Mark'"

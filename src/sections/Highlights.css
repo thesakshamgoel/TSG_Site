@@ -157,19 +157,27 @@
   gap: 12px;
 }
 .hl__dot {
+  position: relative; /* ::before widens the tap area to ~44px tall */
   width: 60px;
   height: 4px;
   border-radius: 100px;
   border: none;
   background: rgba(255, 255, 255, 0.14);
-  overflow: hidden;
-  padding: 0;
+  padding: 0; /* overflow hidden removed so the ::before hit area isn't clipped */
   cursor: pointer;
+}
+.hl__dot::before {
+  content: '';
+  position: absolute;
+  inset: -20px 0;
+  z-index: -1;
 }
 .hl__dot-fill {
   display: block;
   width: 0;
   height: 100%;
+  border-radius: 100px;
+  overflow: hidden;
   background: var(--gold);
 }
 .hl__dot.is-on .hl__dot-fill {
