@@ -6,20 +6,46 @@ import { thumbHiFor, thumbFallbackFor } from '../data/media'
 import { useImgFallback } from '../hooks/useImgFallback'
 import './Work.css'
 
+// A project whose cover is a real uploaded photo (custom thumb or image post),
+// as opposed to a bare YouTube/Vimeo video whose auto-thumbnail we'd rather
+// not use as the big card artwork.
+const hasRealPhoto = (p) => !!(p?.thumb || (p?.mediaType === 'image' && p?.image))
+
+// pointer parallax only makes sense on true hover devices; on touch it
+// "sticks" after a scroll and shifts the image off-centre
+const canHover = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
 function Panel({ category, projects, active, dimmed, index, onHover, onLeave, onOpen }) {
-  const coverProject = projects.find((p) => p.featured) || projects[0]
+  // Prefer an uploaded photo for the card artwork: featured-with-photo first,
+  // then any project with a photo, then fall back to the old behaviour.
+  const coverProject =
+    projects.find((p) => p.featured && hasRealPhoto(p)) ||
+    projects.find(hasRealPhoto) ||
+    projects.find((p) => p.featured) ||
+    projects[0]
   const cover = useImgFallback(thumbHiFor(coverProject), thumbFallbackFor(coverProject))
   const count = projects.length
 
   const onMove = (e) => {
+    if (!canHover()) return
     const el = e.currentTarget
     const r = el.getBoundingClientRect()
     el.style.setProperty('--px', `${((e.clientX - r.left) / r.width - 0.5) * 2}`)
     el.style.setProperty('--py', `${((e.clientY - r.top) / r.height - 0.5) * 2}`)
   }
-  const onMoveLeave = (e) => {
+  const resetParallax = (e) => {
     e.currentTarget.style.setProperty('--px', '0')
     e.currentTarget.style.setProperty('--py', '0')
+  }
+  const onMoveLeave = (e) => {
+    resetParallax(e)
+    onLeave()
+  }
+  const onTouchEnd = (e) => {
+    // touch never fires mouseleave reliably — clear any stuck offset here
+    resetParallax(e)
     onLeave()
   }
 
@@ -41,6 +67,8 @@ function Panel({ category, projects, active, dimmed, index, onHover, onLeave, on
       onMouseEnter={onHover}
       onMouseLeave={onMoveLeave}
       onMouseMove={onMove}
+      onTouchEnd={onTouchEnd}
+      onTouchCancel={onTouchEnd}
       onClick={handleClick}
       initial={{ opacity: 0, y: 60, rotateX: 8 }}
       whileInView={{ opacity: 1, y: 0, rotateX: 0 }}

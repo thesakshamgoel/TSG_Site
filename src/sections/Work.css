@@ -306,6 +306,20 @@
   }
 }
 
+/* touch devices: no pointer tilt, no parallax translate — the cover photo
+   must sit perfectly centred (on phones a stray touch used to leave the
+   image shifted, exposing a dark edge on one side) */
+@media (hover: none) {
+  .panel {
+    --panel-rx: 0deg;
+    --panel-ry: 0deg;
+  }
+  .panel__media img,
+  .panel.is-active .panel__media img {
+    transform: scale(1.06);
+  }
+}
+
 @media (max-width: 720px) {
   /* .section.* beats global.css's .section rule, which loads later in the bundle */
   .section.work {
