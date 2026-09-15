@@ -2,17 +2,16 @@ import { useEffect, useState } from 'react'
 import './MobileTabBar.css'
 
 /**
- * App-style bottom tab bar — mobile only (hidden ≥720px via CSS). On phones the
- * desktop scroll-rail and nav links are hidden, so this is the primary way
- * around: Home, Film, Graphics, About, Contact. Sits above the iOS home
- * indicator via safe-area insets, with a frosted-glass bar like a native app.
+ * App-style bottom tab bar — shown only on phones/small screens. Three tabs,
+ * deliberately minimal: Home (left), Works (centre, the quiet star of the bar),
+ * About (right). Works scrolls to the Two Reels section with the Film and
+ * Graphics panels. Sits above the iOS home indicator via safe-area insets,
+ * with a frosted-glass bar like a native app.
  */
 const TABS = [
   { id: 'top', label: 'Home', icon: HomeIcon },
-  { id: 'film', label: 'Film', icon: FilmIcon },
-  { id: 'graphics', label: 'Design', icon: GridIcon },
+  { id: 'work', label: 'Works', icon: FilmIcon, featured: true },
   { id: 'about', label: 'About', icon: UserIcon },
-  { id: 'contact', label: 'Contact', icon: MailIcon },
 ]
 
 export default function MobileTabBar({ galleryCat, onNavigate }) {
@@ -21,16 +20,16 @@ export default function MobileTabBar({ galleryCat, onNavigate }) {
   // Derive the active tab from scroll position (or the open gallery overlay).
   useEffect(() => {
     if (galleryCat === 'film' || galleryCat === 'graphics') {
-      setActive(galleryCat)
+      setActive('work') // a reel is open — you're inside Works
       return
     }
     const onScroll = () => {
+      const mid = window.innerHeight * 0.5
       const about = document.getElementById('about')
-      if (about && about.getBoundingClientRect().top < window.innerHeight * 0.5) {
-        setActive('about')
-      } else {
-        setActive('top')
-      }
+      const work = document.getElementById('work')
+      if (about && about.getBoundingClientRect().top < mid) setActive('about')
+      else if (work && work.getBoundingClientRect().top < mid) setActive('work')
+      else setActive('top')
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -45,7 +44,7 @@ export default function MobileTabBar({ galleryCat, onNavigate }) {
           <button
             key={t.id}
             type="button"
-            className={`mtab__btn ${active === t.id ? 'is-active' : ''}`}
+            className={`mtab__btn ${t.featured ? 'is-featured ' : ''}${active === t.id ? 'is-active' : ''}`}
             onClick={() => onNavigate(t.id)}
             aria-current={active === t.id ? 'page' : undefined}
           >
@@ -77,29 +76,11 @@ function FilmIcon() {
     </svg>
   )
 }
-function GridIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="3" width="7" height="7" rx="1.5" />
-      <rect x="14" y="3" width="7" height="7" rx="1.5" />
-      <rect x="3" y="14" width="7" height="7" rx="1.5" />
-      <rect x="14" y="14" width="7" height="7" rx="1.5" />
-    </svg>
-  )
-}
 function UserIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="8" r="4" />
       <path d="M4 21c0-4 3.5-6 8-6s8 2 8 6" />
-    </svg>
-  )
-}
-function MailIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="5" width="18" height="14" rx="2" />
-      <path d="m3 7 9 6 9-6" />
     </svg>
   )
 }

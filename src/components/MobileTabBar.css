@@ -51,6 +51,24 @@
     background: rgba(233, 184, 114, 0.08);
   }
 
+  /* centre tab (Works): a touch larger and quietly gold-tinted at rest,
+     clearly gold when active — the star of the bar, kept subtle */
+  .mtab__btn.is-featured {
+    color: color-mix(in srgb, var(--gold) 55%, var(--text-dim));
+  }
+  .mtab__btn.is-featured .mtab__icon {
+    width: 27px;
+    height: 27px;
+  }
+  .mtab__btn.is-featured .mtab__label {
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+  .mtab__btn.is-featured.is-active {
+    color: var(--gold);
+    background: rgba(233, 184, 114, 0.1);
+  }
+
   .mtab__icon {
     width: 24px;
     height: 24px;
