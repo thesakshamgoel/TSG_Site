@@ -50,6 +50,19 @@
   font-size: 0.82rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  /* never spill past the bar — truncate instead of pushing the buttons out */
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* phones: keep just "Reel 01 / Reel 02" — the tagline already shows as the
+   subtitle below, and the long breadcrumb overflowed the bar on mobile */
+@media (max-width: 600px) {
+  .gallery__crumb-tag {
+    display: none;
+  }
 }
 .gallery__x {
   width: 40px;

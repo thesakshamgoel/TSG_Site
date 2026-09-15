@@ -60,7 +60,8 @@ export default function CategoryGallery({
               <span className="gallery__backarrow">←</span> Back
             </button>
             <span className="gallery__crumb">
-              Reel {category.number} · {category.tagline}
+              Reel {category.number}
+              <span className="gallery__crumb-tag"> · {category.tagline}</span>
             </span>
             <button className="gallery__x" onClick={onClose} aria-label="Close">
               ✕
