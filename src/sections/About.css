@@ -122,6 +122,45 @@
   .about__portrait {
     justify-self: start;
   }
+  /* phone-sized rhythm: the desktop spacing is too airy at 390px */
+  .about {
+    padding-top: 96px;
+    padding-bottom: 96px;
+  }
+  .chapter {
+    margin-top: 54px;
+  }
+  .chapter__head {
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+  .timeline__item {
+    padding-bottom: 24px;
+  }
+  .timeline__role {
+    font-size: 1.04rem;
+    gap: 8px;
+  }
+  .timeline__org {
+    font-size: 0.88rem;
+  }
+  .timeline__detail {
+    font-size: 0.9rem;
+  }
+  .about__bio {
+    font-size: 0.95rem;
+    padding-left: 14px;
+  }
+}
+
+@media (max-width: 560px) {
+  .cform {
+    padding: 20px;
+  }
+  .cform__tabs button {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
 }
 
 /* numbered chapters */

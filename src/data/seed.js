@@ -436,19 +436,19 @@ export const COMPARISONS = [
 export const EXPERIENCES = [
   {
     id: 'exp-madhushala',
-    role: '2nd Unit DP · Editor · Colorist — "Madhushala"',
+    role: '2nd Unit DP · Editor · Colorist — "Madhupyaala"',
     org: 'Feature Film',
     period: '2025',
     detail:
-      'Second-unit cinematography plus editorial and DI colour on a feature-length production.',
+      'Second-unit cinematography, editorial and DI colour on the feature film "Madhupyaala".',
   },
   {
     id: 'exp-clients',
-    role: 'Cinematographer · Editor · DI Artist',
-    org: 'Impact Water · Shalmali Kholgade · Freelance',
+    role: 'Cinematographer · Editor · DI Artist — "Supaari"',
+    org: 'Short Film · Freelance',
     period: '2022 — Present',
     detail:
-      'Multiple campaigns with Impact Water, music videos with Shalmali Kholgade, and ongoing freelance work for brands and independent artists.',
+      'Cinematography, editing and DI colour on the short film "Supaari", plus ongoing freelance work for brands and independent artists.',
   },
   {
     id: 'exp-wwi',
@@ -500,7 +500,7 @@ export const PROFILE = {
   // (Front-end code is public, so this is practical access-gating, not a real
   // login — that would need a backend. The console only edits local data.)
   consoleEmail: 'thesakshamgoel@gmail.com',
-  bio: 'Mumbai-trained filmmaker with a BSc. in Filmmaking from Whistling Woods International. From second-unit DP, edit and DI on the feature "Madhushala" to music videos with Shalmali Kholgade and campaigns for Impact Water, I move fluidly between the set and the grade — always in service of the story.',
+  bio: 'Mumbai-trained filmmaker with a BSc. in Filmmaking from Whistling Woods International. From second-unit DP, edit and DI on the feature "Madhupyaala" to the short film "Supaari", I move fluidly between the set and the grade — always in service of the story.',
   instagram: 'https://www.instagram.com/thesakshamgoel/',
   instagramHandle: 'thesakshamgoel',
   // Drop your portrait at public/photo.jpg and your CV at public/cv.pdf.
