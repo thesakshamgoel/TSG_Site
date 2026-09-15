@@ -111,10 +111,17 @@ export function useSmoothScroll(snapIds, tailId, ready, paused) {
       goToIndex(indexRef.current + (down ? 1 : -1))
     }
 
+    // Mobile (site breakpoint ≤720px, same as the nav / tab bar): no section
+    // latching. Touch swipes must scroll natively and freely — the swipe-to-
+    // snap below felt like the page was locking to each screen. Checked live
+    // (not once at mount) so it also covers rotate / zoom across the break.
+    const isMobile = () =>
+      window.matchMedia && window.matchMedia('(max-width: 720px)').matches
+
     let touchY = null
     const onTouchStart = (e) => (touchY = e.touches[0].clientY)
     const onTouchEnd = (e) => {
-      if (paused || touchY == null) return
+      if (isMobile() || paused || touchY == null) return
       const dy = touchY - e.changedTouches[0].clientY
       if (Math.abs(dy) < 45) return
       const dir = dy > 0 ? 1 : -1
