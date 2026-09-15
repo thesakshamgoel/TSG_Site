@@ -150,7 +150,7 @@
     grid-template-columns: 1fr;
   }
   .about__portrait-wrap {
-    justify-self: start;
+    justify-self: center; /* portrait + nameplate centred on phones */
   }
   /* phone-sized rhythm: the desktop spacing is too airy at 390px.
      .section.* needed to beat global.css's .section rule (loads later) */
